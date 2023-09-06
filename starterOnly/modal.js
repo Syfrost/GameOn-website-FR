@@ -68,17 +68,20 @@ function validate() {
     addErrorMessage('first', 'Veuillez entrer 2 caractères ou plus pour le champ du prénom.');
     isValid = false;
   }
+
+  resetErrorStatus('last');
   if (lastName.length < 2 || lastName.trim() === '') {
     addErrorMessage('last', 'Veuillez entrer 2 caractères ou plus pour le champ du nom.');
     isValid = false;
   }
-
+  resetErrorStatus('email');
   if (!validateEmail(email)) {
     addErrorMessage('email', 'Veuillez entrer une adresse e-mail valide.');
     isValid = false;
   }
 
   // Vérifier si la date de naissance est au format jj/mm/aaaa
+  resetErrorStatus('birthdate');
   let regex = /^\d{2}\/\d{2}\/\d{4}$/;
   if (!regex.test(birthdate)) {
     addErrorMessage('birthdate', 'Veuillez entrer une date de naissance au format jj/mm/aaaa.');
@@ -97,19 +100,21 @@ function validate() {
     }
   }
 
-
-  if (isNaN(quantity)) {
-    addErrorMessage('quantity', 'Veuillez entrer une valeur pour le nombre de concours.');
+  resetErrorStatus('quantity');
+  if (isNaN(quantity) || quantity < 0 || quantity > 99) {
+    addErrorMessage('quantity', 'Veuillez entrer une valeur entre 1 et 9 pour le nombre de concours.');
     isValid = false;
   }
 
+  resetErrorStatus('location6');
   if (!location) {
-    addErrorMessage('whereParticipate', 'Veuillez sélectionner une localisation.');
+    addErrorMessage('location6', 'Veuillez sélectionner une localisation.');
     isValid = false;
   }
 
+  resetErrorStatus('checkbox1', "id");
   if (!checkbox1) {
-    addErrorMessage('checkbox1', 'Veuillez accepter les conditions d\'utilisation.');
+    addErrorMessage('checkbox1', 'Veuillez accepter les conditions d\'utilisation.', 'id');
     isValid = false;
   }
 
@@ -121,4 +126,21 @@ function validate() {
 function validateEmail(email) {
   let regex = /\S+@\S+\.\S+/;
   return regex.test(email);
+}
+
+function addErrorMessage(fieldId, message) {
+  let field = document.getElementById(fieldId);
+  let parentElement = field.parentNode;
+    parentElement.setAttribute('data-error', message);
+    parentElement.setAttribute('data-error-visible', 'true');
+    parentElement.classList.add('error');
+    console.log(fieldId);
+}
+
+function resetErrorStatus(fieldId) {
+  let field = document.getElementById(fieldId);
+  let parentElement = field.parentNode;
+  parentElement.removeAttribute('data-error');
+  parentElement.removeAttribute('data-error-visible');
+  parentElement.classList.remove('error');
 }
