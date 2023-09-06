@@ -26,6 +26,9 @@ function launchModal() {
 }
 function closeModal() {
   modalbg.style.display = "none";
+  document.getElementById('formContainer').style.display = 'block';
+  document.getElementById('message').style.display = 'none';
+  document.getElementById('closeButton').style.display = 'none';
 }
 
 // TODO finir le rajout de / dans le champ date
@@ -56,6 +59,7 @@ function validate() {
   let quantity = document.getElementById('quantity').value;
   let location = document.querySelector('input[name="location"]:checked');
   let checkbox1 = document.getElementById('checkbox1').checked;
+  let checkbox2 = document.getElementById('checkbox2').checked;
 
   // Variable pour suivre l'état de validation
   let isValid = true;
@@ -118,6 +122,25 @@ function validate() {
     isValid = false;
   }
 
+  if (isValid) {
+    document.getElementById('formContainer').style.display = 'none';
+    document.getElementById('message').style.display = 'flex';
+    document.getElementById('closeButton').style.display = 'flex';
+
+    //afficher les resultats du formulaire dans un console.table avec en index le type de donnée et en valeur la donnée
+    let formDataArray = [];
+    formData.forEach((element) => {
+      let input = element.querySelector("input");
+      let name = input.getAttribute("name");
+      let value = input.type === "checkbox" ? input.checked : input.value;
+      formDataArray.push({ name: name, value: value });
+    });
+
+    console.table(formDataArray);
+
+    return false;
+  }
+
   // Si toutes les conditions sont remplies, formulaire soumis
   return isValid;
 }
@@ -144,3 +167,5 @@ function resetErrorStatus(fieldId) {
   parentElement.removeAttribute('data-error-visible');
   parentElement.classList.remove('error');
 }
+
+
