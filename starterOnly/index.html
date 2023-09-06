@@ -58,6 +58,7 @@
           <div class="modal-body">
             <form
               name="reserve"
+              id="formContainer"
               action="index.html"
               method="get"
               onsubmit="return validate();"
@@ -186,14 +187,21 @@
                   class="checkbox-input"
                   type="checkbox"
                   id="checkbox1"
+                  name="CGU"
                   checked
                 />
                 <label class="checkbox2-label" for="checkbox1" required>
                   <span class="checkbox-icon" id="cgu-icon"></span>
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>
-                <br>
-                <input class="checkbox-input" type="checkbox" id="checkbox2" />
+              </div>
+              <div
+                class="formData">
+                <input
+                  class="checkbox-input"
+                  type="checkbox"
+                  id="checkbox2"
+                  name="subscribe"/>
                 <label class="checkbox2-label" for="checkbox2">
                   <span class="checkbox-icon"></span>
                   Je souhaite être prévenu des prochains évènements.
@@ -207,6 +215,8 @@
                 value="C'est parti"
               />
             </form>
+            <p id="message">Merci pour votre inscription</p>
+            <button id="closeButton">Fermer</button>
           </div>
         </div>
       </div>
