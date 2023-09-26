@@ -18,6 +18,7 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
+  window.scrollTo(0, 0);
 
   // Close button select
   const closeBtn = document.querySelector(".close");
@@ -31,24 +32,43 @@ function closeModal() {
   document.getElementById('closeButton').style.display = 'none';
 }
 
-// TODO finir le rajout de / dans le champ date
-// function formatBirthdayInput(input) {
-//   let value = input.value;
-//   let formattedValue = '';
-//
-//   if (value.length === 2 || value.length === 5) {
-//     formattedValue = value + '/';
-//   } else {
-//     formattedValue = value;
-//   }
-//
-//   input.value = formattedValue;
-// }
-//
-// let birthdayInput = document.getElementById('birthdate');
-// birthdayInput.addEventListener('input', function() {
-//   formatBirthdayInput(birthdayInput);
-// });
+let previousValue = '';
+
+// Fonction pour formater la date de naissance
+function formatBirthdayInput(input) {
+  let value = input.value;
+  let formattedValue = '';
+
+  // Si la valeur actuelle est plus courte que la valeur précédente, l'utilisateur est en train de supprimer un caractère
+  if (value.length < previousValue.length) {
+    formattedValue = value;
+  } else {
+    value = value.replace(/\//g, ''); // Supprimer tous les "/"
+
+    if (value.length >= 2) {
+      formattedValue = value.substring(0, 2) + '/';
+      if (value.length > 2) {
+        formattedValue += value.substring(2, 4);
+        if (value.length > 4) {
+          formattedValue += '/' + value.substring(4);
+        }
+      }
+    } else {
+      formattedValue = value;
+    }
+  }
+
+  input.value = formattedValue;
+  previousValue = formattedValue; // Mettre à jour la valeur précédente
+}
+
+let birthdayInput = document.getElementById('birthdate');
+birthdayInput.addEventListener('input', function() {
+  formatBirthdayInput(birthdayInput);
+});
+
+
+
 
 function validate() {
   // Récupérer les valeurs des champs
@@ -63,9 +83,6 @@ function validate() {
 
   // Variable pour suivre l'état de validation
   let isValid = true;
-
-  // Vérifier chaque condition
-  // removeAllErrorMessages();
 
   resetErrorStatus('first');
   if (firstName.length < 2 || firstName.trim() === '') {
@@ -105,7 +122,7 @@ function validate() {
   }
 
   resetErrorStatus('quantity');
-  if (isNaN(quantity) || quantity < 0 || quantity > 99) {
+  if (isNaN(quantity) || quantity < 1 || quantity > 99) {
     addErrorMessage('quantity', 'Veuillez entrer une valeur entre 1 et 9 pour le nombre de concours.');
     isValid = false;
   }
@@ -127,7 +144,6 @@ function validate() {
     document.getElementById('message').style.display = 'flex';
     document.getElementById('closeButton').style.display = 'flex';
 
-    //afficher les resultats du formulaire dans un console.table avec en index le type de donnée et en valeur la donnée
     let formDataArray = [];
     formData.forEach((element) => {
       let input = element.querySelector("input");
@@ -136,6 +152,7 @@ function validate() {
       formDataArray.push({ name: name, value: value });
     });
 
+    //afficher les resultats du formulaire dans un console.table avec en index le type de donnée et en valeur la donnée
     console.table(formDataArray);
 
     return false;

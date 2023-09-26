@@ -31,13 +31,18 @@ img {
 
 .topnav {
   overflow: hidden;
-  margin: 3.5%;
+  margin: 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .header-logo {
-    float: left;
+  float: left;
+  display: flex;
+  align-items: center;
 }
 .main-navbar {
-    float: right;
+  float: right;
 }
 .topnav a {
   float: left;
@@ -72,6 +77,7 @@ img {
   .topnav a.icon {
     float: right;
     display: block;
+    color: red;
   }
 }
 
@@ -96,7 +102,7 @@ img {
   .topnav a.icon {
     float: right;
     display: block;
-    margin-top: -15px;
+    margin-top: -2px;
   }
 } 
 
@@ -110,8 +116,6 @@ main {
   margin: 1px 20px 15px;
   border-radius: 2rem;
   text-align: justify;
-
-
 }
 
 .modal-btn {
@@ -206,6 +210,9 @@ input {
   font-size: 20px;
   height: 48px;
 }
+.formData label {
+  padding-top: 5px;
+}
 .formData[data-error]::after {
   content: attr(data-error);
   font-size: 0.4em;
@@ -294,7 +301,7 @@ input[data-error]::after {
   left: 21%;
   top: 19%;
 }
-.close {
+.crossClose {
   position: absolute;
   right: 15px;
   top: 15px;
@@ -304,8 +311,8 @@ input[data-error]::after {
   cursor: pointer;
   transform: scale(0.7);
 }
-.close:before,
-.close:after {
+.crossClose:before,
+.crossClose:after {
   position: absolute;
   left: 15px;
   content: " ";
@@ -313,10 +320,10 @@ input[data-error]::after {
   width: 3px;
   background-color: #fff;
 }
-.close:before {
+.crossClose:before {
   transform: rotate(45deg);
 }
-.close:after {
+.crossClose:after {
   transform: rotate(-45deg);
 }
 .btn-submit,
@@ -341,6 +348,8 @@ input[data-error]::after {
   display: none;
   justify-content: center;
   align-items: center;
+  padding-top: 250px;
+  padding-bottom: 250px;
 }
 /* custom select styles */
 .custom-select {
@@ -536,4 +545,36 @@ footer {
     opacity: 1;
   }
 }
-
+@media screen and (max-width: 768px) {
+  .hero-headline {
+    font-size: 2.5rem;
+  }
+  .hero-content {
+    min-width: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .content {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    max-width: 768px;
+    border-radius: 0;
+    width: 100%;
+    margin: 0;
+    height: calc(100% - calc(50px + 7%));
+  }
+  .modal-body {
+      padding: 15px 5%;
+      margin: 0 auto;
+  }
+  .bground {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
+@media screen and (max-width: 1024px) {
+  .header-logo img{
+    min-width: 103px;
+    width: 25vw;
+  }
+}

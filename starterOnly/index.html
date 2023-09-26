@@ -54,7 +54,7 @@
 
       <div class="bground">
         <div class="content">
-          <span class="close"></span>
+          <span class="crossClose close"></span>
           <div class="modal-body">
             <form
               name="reserve"
@@ -190,7 +190,7 @@
                   name="CGU"
                   checked
                 />
-                <label class="checkbox2-label" for="checkbox1" required>
+                <label class="checkbox2-label" for="checkbox1">
                   <span class="checkbox-icon" id="cgu-icon"></span>
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>
@@ -209,14 +209,13 @@
                 <br>
               </div>
               <input
-                class="btn-submit"
+                class="btn-submit button"
                 type="submit"
-                class="button"
                 value="C'est parti"
               />
             </form>
             <p id="message">Merci pour votre inscription</p>
-            <button id="closeButton">Fermer</button>
+            <button id="closeButton" onclick="closeModal()">Fermer</button>
           </div>
         </div>
       </div>
