@@ -30,6 +30,9 @@ function closeModal() {
   document.getElementById('formContainer').style.display = 'block';
   document.getElementById('message').style.display = 'none';
   document.getElementById('closeButton').style.display = 'none';
+
+  // TODO Réinitialiser le formulaire ?
+  document.getElementById('formContainer').reset();
 }
 
 let previousValue = '';
@@ -122,8 +125,8 @@ function validate() {
   }
 
   resetErrorStatus('quantity');
-  if (isNaN(quantity) || quantity < 1 || quantity > 99) {
-    addErrorMessage('quantity', 'Veuillez entrer une valeur entre 1 et 9 pour le nombre de concours.');
+  if (isNaN(quantity) || quantity < 1 || quantity > 19) {
+    addErrorMessage('quantity', 'Veuillez entrer une valeur entre 1 et 19 pour le nombre de concours.');
     isValid = false;
   }
 
@@ -152,7 +155,7 @@ function validate() {
       formDataArray.push({ name: name, value: value });
     });
 
-    //afficher les resultats du formulaire dans un console.table avec en index le type de donnée et en valeur la donnée
+    //afficher les résultats du formulaire dans un console table avec en index le type de donnée et en valeur la donnée
     console.table(formDataArray);
 
     return false;
